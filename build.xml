@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project name="bear2Web" default="compile" basedir=".">
+
+
+	<property name="jar.name" value="C:/tools/lib/bear2Web.jar"/>
+
+	<!-- Directory -->
+	<property name="lib.dir" value="C:\tools\pleiades\workspace\bear2Web\WEB-INF\lib" />
+	<property name="src.dir" value="C:\tools\pleiades\workspace\bear2Web\WEB-INF\src" />
+	<property name="classes.dir" value="C:\tools\pleiades\workspace\bear2Web\WEB-INF\classes"/>
+	<property name="javadoc.dir" value="docs"/>
+
+	<!-- classpath -->
+	<path id="id.compile.classpath">
+		<fileset dir="C:\tools\pleiades\workspace\bear2Web\WEB-INF\lib">
+			<include name="*.jar" />
+			<include name="*.zip" />
+		</fileset>
+	</path>
+
+
+
+	<!-- ************************************************** -->
+	<!-- init -->
+	<target name="init">
+		<tstamp/>
+		<mkdir dir="${classes.dir}" />
+		<mkdir dir="${javadoc.dir}" />
+	</target>
+
+	<!-- compile -->
+	<target name="compile" depends="init" description="compiloe">
+		<mkdir dir="${classes.dir}"/>
+		<javac	srcdir="${src.dir}"
+				destdir="${classes.dir}">
+			<classpath>
+				<path refid="id.compile.classpath" />
+			</classpath>
+		</javac>
+
+	</target>
+
+	<!-- jar -->
+	<target name="jar" depends="init,compile">
+		<jar jarfile="${jar.name}" basedir="${classes.dir}"></jar>
+	</target>
+
+	<!-- javadoc -->
+	<target name="javadoc" depends="init,compile">
+		<javadoc destdir="${javadoc.dir}">
+			<fileset sir="${src.dir}"/>
+		</javadoc>
+	</target>
+
+	<!-- clean -->
+	<target name="clean">
+		<delete dir="${classes.dir}"/>
+		<delete dir="${javadoc.dir}"/>
+	</target>
+
+</project>
